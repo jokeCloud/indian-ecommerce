@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #1B1C1E;
+}
+
+.card-text {
+    color: green;
+    font-weight: 800;
+}
+
+.card-title {
+    font-weight: 900;
+}
+
+span {
+    color: aliceblue;
+}
+
+.page-link {
+    display: inline-block;
+}
+
+.detail {
+    color: aliceblue;
+}
+
+.offer {
+    color: #F22;
+}
+
+.active>.page-link,
+.page-link.active {
+    z-index: 3;
+    background-color: green;
+    border-color: green;
+}
+
+
+element.style {}
+
+.page-link {
+    display: inline-block;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
+    font-size: var(--bs-pagination-font-size);
+    color: var(--bs-pagination-color);
+    text-decoration: none;
+    background-color: var(--bs-pagination-bg);
+    border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+a {
+    color: var(--bs-link-color);
+    text-decoration: underline;
+}
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+user agent stylesheet a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#pagination {
+    color: green;
+}
+
+.pagination {
+    --bs-pagination-color: green;
+    --bs-pagination-hover-color: green;
+    --bs-pagination-focus-color: green;
+    --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(13, 253, 110, 0.25);
+    --bs-pagination-active-bg: #0dfd6e;
+    --bs-pagination-active-border-color: #0dfd6e;
+}

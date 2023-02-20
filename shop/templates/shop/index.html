@@ -1,0 +1,121 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="//cdn1.polaris.com/assets/v2/themes/ind/images/icons/favicons/favicon-32x32.png?v=10455">
+    <link rel="icon" type="image/png" sizes="16x16" href="//cdn1.polaris.com/assets/v2/themes/ind/images/icons/favicons/favicon-16x16.png?v=10455">
+    <!-- Bootstrap5
+    -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!--Main CSS        
+    -->
+    <link rel="stylesheet" href="{% static 'shop/style.css' %}">
+
+    <title>Indiancommerce</title>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <form class="card card-sm">
+                    <div class="card-body row no-gutters align-items-center">
+                        <div class="col">
+                            <input type="search" name="item_name" placeholder="Search for products" class="form-control form-control-borderless">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-success" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            {% for product in product_objects %}
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{{ product.image }}" alt="{{ product.title }}" class="card-img-top">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <p>{{ product.title }}</p>
+                        </div>
+                        <div class="card-text">
+                            <p>$ {{ product.price }}</p>
+                        </div>
+                    
+                        <a href="/{{ product.id }}" class="btn btn-warning">View</a>
+                        <a class="btn btn-warning">Add to cart</a>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+
+       
+        <!--Django example
+        -->
+        <div class="row mt-4">
+            <div class="col-md-5">
+                <ul class="pagination">
+                    {% if product_objects.has_previous %}
+                        <a class="page-link" href="?page=1">&laquo; first</a>
+                        <a class="page-link" href="?page={{ product_objects.previous_page_number }}">previous</a>
+                    {% endif %}
+            
+                    <span class="current page-link active">
+                        Page {{ product_objects.number }} of {{ product_objects.paginator.num_pages }}.
+                    </span>
+            
+                    {% if product_objects.has_next %}
+                        <a class="page-link" href="?page={{ product_objects.next_page_number }}">next</a>
+                        <a class="page-link" href="?page={{ product_objects.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <!--Couse implementation
+        -->
+        <div class="row">
+            <div class="col-md-3 offset-md-5">
+                <ul class="pagination">
+                    {% if product_objects.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ product_objects.previous_page_number }}">Previous</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="page-item active">
+                        <a class="page-link" href="?page={{ product_objects.number }}">{{ product_objects.number }}</a>
+                    </li>
+
+
+                    {% if product_objects.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ product_objects.next_page_number }}">Next</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!--Script Bootstrap5
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+</body>
+</html>
