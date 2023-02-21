@@ -12,7 +12,7 @@
     -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!--Main CSS        
-    -->
+    -->    
     <link rel="stylesheet" href="{% static 'shop/style.css' %}">
 
     <title>Indiancommerce</title>
@@ -20,102 +20,184 @@
 <body>
 
     <div class="container">
-
         <div class="row">
             <div class="col-md-12">
-                <form class="card card-sm">
-                    <div class="card-body row no-gutters align-items-center">
-                        <div class="col">
-                            <input type="search" name="item_name" placeholder="Search for products" class="form-control form-control-borderless">
-                        </div>
-                        <div class="col-auto">
-                            <button class="btn btn-success" type="submit">Search</button>
+                
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">Navbar</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Features</a>
+                                </li>
+                                <li class="nav-item">
+                                    <button id="cart" type="button" class="btn btn-secondary" data-bs-html="true" data-bs-html="true" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
+                                        Cart(0)
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                </form>
+                </nav>
             </div>
         </div>
-
-
-
-        <div class="row">
-            {% for product in product_objects %}
-            <div class="col-md-3">
-                <div class="card">
-                    <img src="{{ product.image }}" alt="{{ product.title }}" class="card-img-top">
-                    <div class="card-body">
-                        <div class="card-title">
-                            <p>{{ product.title }}</p>
-                        </div>
-                        <div class="card-text">
-                            <p>$ {{ product.price }}</p>
-                        </div>
-                    
-                        <a href="/{{ product.id }}" class="btn btn-warning">View</a>
-                        <a class="btn btn-warning">Add to cart</a>
-
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="card card-sm">
+                <div class="card-body row no-gutters align-items-center">
+                    <div class="col">
+                        <input type="search" name="item_name" placeholder="Search for products" class="form-control form-control-borderless">
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-success" type="submit">Search</button>
                     </div>
                 </div>
-            </div>
-            {% endfor %}
+            </form>
         </div>
+    </div>
 
+    <div class="row">
+        {% for product in product_objects %}
+        <div class="col-md-3">
+            <div class="card">
+                <img src="{{ product.image }}" alt="{{ product.title }}" class="card-img-top">
+                <div class="card-body">
+                    <div id="nm{{ product.id }}" class="card-title">
+                        <p>{{ product.title }}</p>
+                    </div>
+                    <div class="card-text">
+                        <p>$ {{ product.price }}</p>
+                    </div>
+                
+                    <a href="/{{ product.id }}" class="btn btn-warning">View</a>
+                    <button id="{{ product.id }}" class="btn atc btn-warning">Add to cart</button>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
 
        
-        <!--Django example
-        -->
-        <div class="row mt-4">
-            <div class="col-md-5">
-                <ul class="pagination">
-                    {% if product_objects.has_previous %}
-                        <a class="page-link" href="?page=1">&laquo; first</a>
-                        <a class="page-link" href="?page={{ product_objects.previous_page_number }}">previous</a>
-                    {% endif %}
-            
-                    <span class="current page-link active">
-                        Page {{ product_objects.number }} of {{ product_objects.paginator.num_pages }}.
-                    </span>
-            
-                    {% if product_objects.has_next %}
-                        <a class="page-link" href="?page={{ product_objects.next_page_number }}">next</a>
-                        <a class="page-link" href="?page={{ product_objects.paginator.num_pages }}">last &raquo;</a>
-                    {% endif %}
-                </ul>
-            </div>
+    <!--Django example
+    -->
+    <div class="row mt-4">
+        <div class="col-md-5">
+            <ul class="pagination">
+                {% if product_objects.has_previous %}
+                    <a class="page-link" href="?page=1">&laquo; first</a>
+                    <a class="page-link" href="?page={{ product_objects.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current page-link active">
+                    Page {{ product_objects.number }} of {{ product_objects.paginator.num_pages }}.
+                </span>
+        
+                {% if product_objects.has_next %}
+                    <a class="page-link" href="?page={{ product_objects.next_page_number }}">next</a>
+                    <a class="page-link" href="?page={{ product_objects.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </ul>
         </div>
-
-        <!--Couse implementation
-        -->
-        <div class="row">
-            <div class="col-md-3 offset-md-5">
-                <ul class="pagination">
-                    {% if product_objects.has_previous %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ product_objects.previous_page_number }}">Previous</a>
-                        </li>
-                    {% endif %}
-
-                    <li class="page-item active">
-                        <a class="page-link" href="?page={{ product_objects.number }}">{{ product_objects.number }}</a>
-                    </li>
-
-
-                    {% if product_objects.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ product_objects.next_page_number }}">Next</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-
     </div>
+
+    <!--Couse implementation
+    -->
+    <div class="row">
+        <div class="col-md-3 offset-md-5">
+            <ul class="pagination">
+                {% if product_objects.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ product_objects.previous_page_number }}">Previous</a>
+                    </li>
+                {% endif %}
+
+                <li class="page-item active">
+                    <a class="page-link" href="?page={{ product_objects.number }}">{{ product_objects.number }}</a>
+                </li>
+
+
+                {% if product_objects.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ product_objects.next_page_number }}">Next</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
 
     <!--Script Bootstrap5
     -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    {% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script> {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!--Script JQuery
+    -->
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    
+    <script type="text/javascript">
 
+        /* cart validation */
+        if (localStorage.getItem('cart') == null) {
+            var cart = {}
+        } else {
+            cart = JSON.parse(localStorage.getItem('cart'))
+        }
+
+        /* add to cart */
+        $(document).on('click', '.atc', function() {
+            console.log("The add to cart button is clicked")
+            var item_id = this.id.toString()
+            console.log(item_id)
+
+            if (cart[item_id] != undefined) {
+                cart[item_id] = cart[item_id] + 1
+            } else {
+                cart[item_id] = 1
+            }
+            console.log(cart)
+            localStorage.setItem('cart', JSON.stringify(cart))
+            document.getElementById("cart").innerHTML = "Cart("+ Object.keys(cart).length + ")"
+        })
+
+        /* popover */
+        /* $(function(){
+            $('[data-bs-toggle="popover"]').popover()
+        })
+
+        const car = document.getElementById("cart");
+        car.setAttribute('data-bs-content', '<h3>Cartss</h3>')
+        */
+        DisplayCart(cart)
+        function DisplayCart(cart){
+            var cartString = ""
+            cartString += "<h5>This is your cart</h5>"
+
+            var cartIndex = 1
+
+            for (var i in cart) {
+                cartString += cartIndex
+                cartString += document.getElementById("nm" + i).innerHTML + "Qty:" + cart[i] + "<br>"
+                cartIndex += 1
+            }
+            document.getElementById("cart").setAttribute("data-bs-content", DisplayCart(cart))
+            $('[data-bs-toggle="popover"]').popover()
+        }
+        
+    </script>
 </body>
 </html>
