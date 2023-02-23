@@ -114,7 +114,7 @@
         </div>
     </div>
 
-    <!--Couse implementation
+    <!--Course implementation
     -->
     <div class="row">
         <div class="col-md-3 offset-md-5">
@@ -165,9 +165,15 @@
             console.log(item_id)
 
             if (cart[item_id] != undefined) {
-                cart[item_id] = cart[item_id] + 1
+                quantity = cart[item_id][0] + 1
+                cart[item_id][0] = quantity
+
             } else {
-                cart[item_id] = 1
+                quantity = 1
+                name = document.getElementById("nm"+item_id).innerHTML
+                cart[item_id]=[quantity,name]
+
+                
             }
             console.log(cart)
             localStorage.setItem('cart', JSON.stringify(cart))
@@ -182,20 +188,21 @@
         const car = document.getElementById("cart");
         car.setAttribute('data-bs-content', '<h3>Cartss</h3>')
         */
-        DisplayCart(cart)
+        
+        DisplayCart(cart);
         function DisplayCart(cart){
-            var cartString = ""
-            cartString += "<h5>This is your cart</h5>"
-
-            var cartIndex = 1
-
-            for (var i in cart) {
-                cartString += cartIndex
-                cartString += document.getElementById("nm" + i).innerHTML + "Qty:" + cart[i] + "<br>"
-                cartIndex += 1
+            var cartString ="";
+            cartString += "<h5>This is your cart</h5>";
+            var cartIndex = 1;
+            for(var x in cart){
+                cartString += cartIndex;
+                cartString += document.getElementById("nm"+x).innerHTML + "Qty:" + cart[x][0] + "</br>";
+                cartIndex+=1;
             }
-            document.getElementById("cart").setAttribute("data-bs-content", DisplayCart(cart))
-            $('[data-bs-toggle="popover"]').popover()
+    
+            cartString += "<a href='/checkout'><button class='btn btn-warning' id='checkout'>Checkout</button></a>";
+            document.getElementById("cart").setAttribute('data-bs-content',cartString);
+            $('[data-bs-toggle="popover"]').popover();
         }
         
     </script>
